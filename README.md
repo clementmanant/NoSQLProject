@@ -56,16 +56,39 @@ Screwdriver
 Redis
 
 ## Recommandations
+Neo4J
 
 ## Installation
 Pull the git : https://github.com/clementmanant/NoSQLProject
-npm i express mongodb mongoose
+npm i express mongodb mongoose dotenv redis neo4j-driver
 npm i nodemon -D
 Create account http://mongodb.com/atlas (I have to give access to view)
 
 ## Launch project
+cd api
+Create .env and fill : 
+- PORT_MONGO
+- URL_MONGO
+- PASSWORD_REDIS
+- HOST_REDIS
+- PORT_REDIS
+- URI_NEO
+- USER_NEO
+- PASSWORD_NEO
+
 npm run dev
-Should see :
-    Connected to database !
-    Server is running on port 3000
-Test with http://localhost:3000 and http://localhost:3000/api/products 
+
+You should see :
+
+    Redis connection established.
+    Connection estabilished to Neo4j.
+    Connected to Mongo database !
+    Server is running on port 3000 ! 
+
+Test Mongo with http://localhost:3000 and http://localhost:3000/api/products 
+
+## TODOS
+UML Mongo
+Mongo API on all collections
+Redis API
+Neo4J API
