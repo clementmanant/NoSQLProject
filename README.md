@@ -60,9 +60,12 @@ Neo4J
 
 ## Installation
 Pull the git : https://github.com/clementmanant/NoSQLProject
+Install node
+cd api
 npm i express mongodb mongoose dotenv redis neo4j-driver
 npm i nodemon -D
 Create account http://mongodb.com/atlas (I have to give access to view)
+Same for Redis and Neo4j
 
 ## Launch project
 cd api
