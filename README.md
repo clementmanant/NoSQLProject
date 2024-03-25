@@ -95,3 +95,4 @@ UML Mongo
 Mongo API on all collections
 Redis API
 Neo4J API
+Restrict names doublons on Mongo Cocktails

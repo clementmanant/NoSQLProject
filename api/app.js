@@ -5,6 +5,7 @@ const mongoose = require('mongoose')
 const neo4j = require('neo4j-driver')
 const redis = require('redis')
 const productRoute = require('./routes/product.route.js')
+const ingredientRoute = require('./routes/ingredient.route.js')
 
 const app = express()
 
@@ -14,6 +15,7 @@ app.use(express.urlencoded({extended: false}))
 
 // Routes
 app.use("/api/products", productRoute)
+app.use("/api/ingredients", ingredientRoute)
 
 app.get('/', (_, res) => {
     res.send("Welcome to ROBARATHON !")
