@@ -1,5 +1,12 @@
 # NoSQLProject
 
+## Membres
+LOPEZ Tao
+TORIBIO Alexis
+CROIZET Rémy
+FEUGNET Théo
+MANANT Clément
+
 Bar commande
 
 Recettes : relationnelle/document?

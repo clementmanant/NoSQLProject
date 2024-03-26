@@ -20,7 +20,8 @@ app.use("/api/ingredients", ingredientRoute)
 app.get('/', (_, res) => {
     res.send("Welcome to ROBARATHON !")
 })
-
+/*
+// À commenter
 const neo = async () => {
   
     // URI examples: 'neo4j://localhost', 'neo4j+s://xxx.databases.neo4j.io'
@@ -44,6 +45,8 @@ const neo = async () => {
   }
 
 neo()
+*/
+// Jusqu'ici
 
 try {
     const client = redis.createClient({
