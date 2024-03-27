@@ -10,6 +10,8 @@
 ## Recettes
 With MongoDB
 
+Classic CRUDs on Products collection and Ingredients collection
+
 - Mojito
 - Long Island
 - Tequila Sunrise
@@ -21,8 +23,12 @@ With MongoDB
 ## Commandes
 Redis
 
-Basket
-Waiting list
+Create or update basket
+Get basket by User
+Pop cocktail from Basket
+Send to Waiting List
+Get Waiting List
+Pop from Waiting List
 
 ## Recommandations
 Neo4J
@@ -30,14 +36,14 @@ Neo4J
 ## Installation
 Install node
 Pull the git : https://github.com/clementmanant/NoSQLProject
+Go inside the folder you just cloned
 cd api
-npm i express mongodb mongoose dotenv redis neo4j-driver
+npm i express mongodb mongoose dotenv redis
 npm i nodemon -D
 docker compose up
-Create .env and fill : 
+Create .env in api folder and fill with : 
 - PORT_MONGO
 - URL_MONGO
-- HOST_REDIS
 - PORT_REDIS
 npm run dev
 
