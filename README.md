@@ -53,6 +53,8 @@ Create account http://mongodb.com/atlas (I have to give access to view)
 Connect to RedisInsight at 127.0.0.1:6379 
 
 ## Launch project
+```cd api```
+
 ```npm run dev```
 
 You should see :
