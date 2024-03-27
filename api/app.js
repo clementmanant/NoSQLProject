@@ -20,8 +20,83 @@ app.use("/api/ingredients", ingredientRoute)
 app.get('/', (_, res) => {
     res.send("Welcome to ROBARATHON !")
 })
+
+const client = redis.createClient(process.env.PORT_REDIS);
+
+(async ()=> {
+    client.on('error', (err) => {
+        console.log("Redis connexion error.", err)
+    })
+
+    client.on('ready', () => console.log("Redis is ready !"))
+
+    await client.connect()
+    await client.ping()
+    
+    }
+)();
+
+app.get('/api/redis/test', async () => {
+    const test = await client.set('key', 'value');
+    const value = await client.get('key');
+})
+
+app.post('/api/redis/list', async (req, res) => {
+    try {
+        const jsonData = req.body;
+
+        if (!jsonData.user_id || !Array.isArray(jsonData.cocktails)) {
+            return res.status(400).send('Le JSON doit contenir un user_id et un tableau de cocktails');
+        }
+
+        jsonData.cocktails.forEach(cocktail => {
+            client.rPush('file_attente', JSON.stringify({ user_id: jsonData.user_id, cocktail }), (err) => {
+                if (err) {
+                    console.error('Erreur lors de l\'ajout à la liste d\'attente :', err);
+                } else {
+                    console.log('Cocktail ajouté à la liste d\'attente :', cocktail.name);
+                }
+            });
+        });
+
+        res.status(200).send('Les cocktails ont été ajoutés à la liste d\'attente avec succès.');
+    } catch (error) {
+        res.status(500).json({message: error.message})
+    }
+})
+
+app.get('/api/redis/list', async (_, res) => {
+    
+    try {
+        const value = await client.lRange("file_attente", 0, -1)
+        res.status(200).json(value);
+    } catch (error) {
+        res.status(500).json({message: error.message})
+    }
+    
+});
+
+app.put('/api/redis/list', async (_, res) => {
+    try {
+        const cocktailPrep = await client.lPop("file_attente")
+        res.status(200).json(cocktailPrep);
+    } catch (error) {
+        res.status(500).json({message: error.message})
+    }
+})
+
+mongoose.connect(process.env.URL_MONGO)
+    .then(() => {
+        console.log("Connected to Mongo database !")
+        app.listen(process.env.PORT_MONGO, () => {
+            console.log('Server is running on port', process.env.PORT_MONGO, "!")
+        })
+    })
+    .catch(() => {
+        console.log("Connexion failed !")
+    })
+
 /*
-// À commenter
 const neo = async () => {
   
     // URI examples: 'neo4j://localhost', 'neo4j+s://xxx.databases.neo4j.io'
@@ -46,32 +121,3 @@ const neo = async () => {
 
 neo()
 */
-// Jusqu'ici
-
-try {
-    const client = redis.createClient({
-        password: process.env.PASSWORD_REDIS,
-        socket: {
-            host: process.env.HOST_REDIS,
-            port: process.env.PORT_REDIS
-        }
-    });
-    console.log("Redis connection established.")
-    // console.log(client)
-}
-catch(err){
-    console.log("Error connecting to Redis.")
-}
-
-
-mongoose.connect(process.env.URL_MONGO)
-    .then(() => {
-        console.log("Connected to Mongo database !")
-        app.listen(process.env.PORT_MONGO, () => {
-            console.log('Server is running on port', process.env.PORT_MONGO, "!")
-        })
-    })
-    .catch(() => {
-        console.log("Connexion failed !")
-    })
-
