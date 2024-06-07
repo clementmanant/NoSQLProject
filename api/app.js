@@ -2,6 +2,7 @@ require('dotenv').config()
 
 const express = require('express')
 const mongoose = require('mongoose')
+const cors = require('cors');
 const productRoute = require('./routes/product.route.js')
 const ingredientRoute = require('./routes/ingredient.route.js')
 const redisRoute = require('./routes/redis.route.js')
@@ -11,6 +12,7 @@ const app = express()
 // Middlewares
 app.use(express.json())
 app.use(express.urlencoded({extended: false}))
+app.use(cors());
 
 // Routes
 app.use("/api/products", productRoute)
