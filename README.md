@@ -1,10 +1,8 @@
-# NoSQLProject / Barathon
+# Robarathon
 
 ## Membres
 - LOPEZ Tao
 - TORIBIO Alexis
-- CROIZET Rémy
-- FEUGNET Théo
 - MANANT Clément
 
 ## Recettes
